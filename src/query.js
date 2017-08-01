@@ -17,7 +17,8 @@ export default function query(propName, apiCall, dispatcher = defaultDispatcher)
     class Wrapper extends React.Component {
 
       static prepareState() {
-        this.fetch();
+        let promise = dispatch(dispatcher(apiCall, {}));
+        return promise
       }
 
       constructor(props) {
