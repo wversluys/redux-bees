@@ -17,8 +17,7 @@ export default function query(propName, apiCall, dispatcher = defaultDispatcher)
     class Wrapper extends React.Component {
 
       static prepareState( store ) {
-        let promise = store.dispatch(dispatcher(apiCall, {}));
-        return promise
+        return store.dispatch(dispatcher(apiCall, {}));
       }
 
       constructor(props) {
@@ -27,7 +26,10 @@ export default function query(propName, apiCall, dispatcher = defaultDispatcher)
       }
 
       componentDidMount() {
-        this.fetch();
+        const { entities } = this.props.state.bees;
+        if (!entities[propName]) {
+          this.fetch();
+        }
       }
 
       componentWillReceiveProps(nextProps) {
@@ -64,6 +66,7 @@ export default function query(propName, apiCall, dispatcher = defaultDispatcher)
       const argumentsAbsorber = (...args) => args;
 
       return {
+        state: state,
         request: getRequestInfo(
           state,
           apiCall,
