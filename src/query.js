@@ -15,6 +15,11 @@ function getDisplayName(WrappedComponent) {
 export default function query(propName, apiCall, dispatcher = defaultDispatcher) {
   return (InnerComponent) => {
     class Wrapper extends React.Component {
+
+      static prepareState() {
+        this.fetch();
+      }
+
       constructor(props) {
         super(props);
         this.fetch = this.fetch.bind(this);
