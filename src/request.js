@@ -1,3 +1,5 @@
+import fetch from 'node-fetch';
+
 export default function request(baseUrl, path, options) {
   return fetch(baseUrl + path, options)
     .then((res) => {
